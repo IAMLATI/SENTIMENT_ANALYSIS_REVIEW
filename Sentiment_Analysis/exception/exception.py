@@ -1,8 +1,8 @@
 import sys
-from networksecurity.logging import logger
+from Sentiment_Analysis.logging import logger
 
 
-class NetworkSecurityException(Exception):
+class SentimentAnalysisException(Exception):
     def __init__(self, error_message,error_detail:sys):
         self.error_message = error_message
         _,_,exc_tb = error_detail.exc_info()
