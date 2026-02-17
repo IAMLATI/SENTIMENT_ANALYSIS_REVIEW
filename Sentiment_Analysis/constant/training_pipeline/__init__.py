@@ -1,6 +1,11 @@
 import os, sys
 import pandas as pd
 import numpy as np
+import nltk
+
+nltk.download("stopwords")
+nltk.download("wordnet")
+nltk.download("omw-1.4")
 
 """Defining common constant variable for training pipeline"""
 TARGET_COLUMN = "rating"

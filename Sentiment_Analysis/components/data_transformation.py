@@ -5,6 +5,8 @@ from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
 from sklearn.preprocessing import FunctionTransformer
 from sklearn.feature_extraction.text import CountVectorizer
+STOP_WORDS = set(stopwords.words("english"))
+LEMMATIZER = WordNetLemmatizer()
 
 stop_words = set(stopwords.words("english"))
 lemmatizer = WordNetLemmatizer()
@@ -36,48 +38,66 @@ class DataTransformation:
         except Exception as e:
             raise SentimentAnalysisException(e, sys)
 
+    # def _clean_text_series(self, df: pd.DataFrame) -> pd.Series:
+    #     """
+    #     Receives a DataFrame with column 'reviewText' and returns a cleaned Series of strings.
+    #     Used inside sklearn FunctionTransformer.
+    #     """
+    #     try:
+    #         text_series = df["reviewText"].fillna("").astype(str)
+
+    #         def lemmatizer_words(text: str) -> str:
+    #             return " ".join([self._lemmatizer.lemmatize(word) for word in text.split()])
+
+    #         def clean_text(x: str) -> str:
+    #             x = str(x).lower()
+
+    #             # remove urls/domains
+    #             x = re.sub(
+    #                 r"(https?://\S+|www\.\S+|(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}(?:/\S*)?)",
+    #                 "",
+    #                 x
+    #             )
+
+    #             # strip html
+    #             x = BeautifulSoup(x, "lxml").get_text()
+
+    #             # keep only alphanumeric + spaces
+    #             x = re.sub(r"[^a-zA-Z0-9\s]", " ", x)
+
+    #             # remove stopwords
+    #             x = " ".join([w for w in x.split() if w not in self._stop_words])
+
+    #             # normalize spaces
+    #             x = " ".join(x.split())
+
+    #             # lemmatize
+    #             x = lemmatizer_words(x)
+
+    #             return x
+
+    #         return text_series.apply(clean_text)
+
+    #     except Exception as e:
+    #         raise SentimentAnalysisException(e, sys)
+
     def _clean_text_series(self, df: pd.DataFrame) -> pd.Series:
-        """
-        Receives a DataFrame with column 'reviewText' and returns a cleaned Series of strings.
-        Used inside sklearn FunctionTransformer.
-        """
-        try:
-            text_series = df["reviewText"].fillna("").astype(str)
+        text_series = df["reviewText"].fillna("").astype(str)
 
-            def lemmatizer_words(text: str) -> str:
-                return " ".join([self._lemmatizer.lemmatize(word) for word in text.split()])
+        def lemmatizer_words(text: str) -> str:
+            return " ".join([LEMMATIZER.lemmatize(word) for word in text.split()])
 
-            def clean_text(x: str) -> str:
-                x = str(x).lower()
+        def clean_text(x: str) -> str:
+            x = str(x).lower()
+            x = re.sub(r"(https?://\S+|www\.\S+|(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}(?:/\S*)?)", "", x)
+            x = BeautifulSoup(x, "lxml").get_text()
+            x = re.sub(r"[^a-zA-Z0-9\s]", " ", x)
+            x = " ".join([w for w in x.split() if w not in STOP_WORDS])
+            x = " ".join(x.split())
+            x = lemmatizer_words(x)
+            return x
 
-                # remove urls/domains
-                x = re.sub(
-                    r"(https?://\S+|www\.\S+|(?:[A-Za-z0-9-]+\.)+[A-Za-z]{2,}(?:/\S*)?)",
-                    "",
-                    x
-                )
-
-                # strip html
-                x = BeautifulSoup(x, "lxml").get_text()
-
-                # keep only alphanumeric + spaces
-                x = re.sub(r"[^a-zA-Z0-9\s]", " ", x)
-
-                # remove stopwords
-                x = " ".join([w for w in x.split() if w not in self._stop_words])
-
-                # normalize spaces
-                x = " ".join(x.split())
-
-                # lemmatize
-                x = lemmatizer_words(x)
-
-                return x
-
-            return text_series.apply(clean_text)
-
-        except Exception as e:
-            raise SentimentAnalysisException(e, sys)
+        return text_series.apply(clean_text)
 
         
     def get_data_transformer_object(self) -> Pipeline:
