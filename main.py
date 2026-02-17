@@ -1,10 +1,10 @@
 from Sentiment_Analysis.components.data_ingestion import DataIngestion
 from Sentiment_Analysis.components.data_validation import DataValidation
 from Sentiment_Analysis.components.data_transformation import DataTransformation
-# from Sentiment_Analysis.components.model_trainer import ModelTrainer
+from Sentiment_Analysis.components.model_trainer import ModelTrainer
 from Sentiment_Analysis.exception.exception import SentimentAnalysisException
 from Sentiment_Analysis.logging.logger import logging
-from Sentiment_Analysis.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig,DataTransformationConfig
+from Sentiment_Analysis.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig,DataTransformationConfig,ModelTrainerConfig
 
 
 import sys
@@ -33,12 +33,12 @@ if __name__=='__main__':
         print(data_transformation_artifact)
         logging.info(" data Transformation completed")
 
-        # logging.info("Model Training started")
-        # model_trainer_config=ModelTrainerConfig(trainingpipelineconfig)
-        # model_trainer=ModelTrainer(model_trainer_config=model_trainer_config, data_transformation_artifact=data_transformation_artifact)
-        # model_trainer_artifact=model_trainer.initiate_model_trainer()
+        logging.info("Model Training started")
+        model_trainer_config=ModelTrainerConfig(trainingpipelineconfig)
+        model_trainer=ModelTrainer(model_trainer_config=model_trainer_config, data_transformation_artifact=data_transformation_artifact)
+        model_trainer_artifact=model_trainer.initiate_model_trainer()
 
-        # logging.info("mODEL TRAINING ARTIFACT CREATED")
+        logging.info("mODEL TRAINING ARTIFACT CREATED")
 
 
     except Exception as e:
