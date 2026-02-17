@@ -10,7 +10,7 @@ FILE_NAME = "all_kindle_review .csv"
 TRAIN_FILE_NAME = "train.csv"
 TEST_FILE_NAME = "test.csv"
 
-# SCHEMA_FILE_PATH = os.path.join("data_schema", "schema.yaml")
+SCHEMA_FILE_PATH = os.path.join("data_schema", "schema.yaml")
 
 # SAVED_MODEL_DIR = os.path.join("saved_models")
 # MODEL_FILE_NAME = "model.pkl"
@@ -24,13 +24,13 @@ DATA_INGESTION_FEATURE_STORE_DIR = "feature_store"
 DATA_INGESTION_INGESTED_DIR = "ingested"
 DATA_INGESTION_TRAIN_TEST_SPLIT_RATION = 0.2
 
-# """ Data Validation related constant start with DATA_VALIDATION VAR NAME """
-# DATA_VALIDATION_DIR_NAME = "data_validation"
-# DATA_VALIDATION_VALID_DIR = "validated"
-# DATA_VALIDATION_INVALID_DIR = "invalid"
-# DATA_VALIDATION_DRIFT_REPORT_DIR = "drift_report"
-# DATA_VALIDATION_DRIFT_REPORT_FILE_NAME = "report.yaml"
-# PREPROCESSING_OBJECT_FILE_NAME:str="preprocessing.pkl"
+""" Data Validation related constant start with DATA_VALIDATION VAR NAME """
+DATA_VALIDATION_DIR_NAME = "data_validation"
+DATA_VALIDATION_VALID_DIR = "validated"
+DATA_VALIDATION_INVALID_DIR = "invalid"
+DATA_VALIDATION_DRIFT_REPORT_DIR = "drift_report"
+DATA_VALIDATION_DRIFT_REPORT_FILE_NAME = "report.yaml"
+PREPROCESSING_OBJECT_FILE_NAME:str="preprocessing.pkl"
 
 # """ Data Transformation related constant start with DATA_TRANSFORMATION VAR NAME """
 # #KKN IMPUTER TO REPLACE NAN VALUES

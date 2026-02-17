@@ -1,0 +1,18 @@
+columns:
+  "Unnamed: 0.1": int64
+  "Unnamed: 0": int64
+  asin: object
+  helpful: object
+  rating: int64
+  reviewText: object
+  reviewTime: object
+  reviewerID: object
+  reviewerName: object
+  summary: object
+  unixReviewTime: int64
+
+numerical_columns:
+  - "Unnamed: 0.1"
+  - "Unnamed: 0"
+  - rating
+  - unixReviewTime

@@ -1,10 +1,10 @@
 from Sentiment_Analysis.components.data_ingestion import DataIngestion
-# from Sentiment_Analysis.components.data_validation import DataValidation
+from Sentiment_Analysis.components.data_validation import DataValidation
 # from Sentiment_Analysis.components.data_transformation import DataTransformation
 # from Sentiment_Analysis.components.model_trainer import ModelTrainer
 from Sentiment_Analysis.exception.exception import SentimentAnalysisException
 from Sentiment_Analysis.logging.logger import logging
-from Sentiment_Analysis.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig
+from Sentiment_Analysis.entity.config_entity import DataIngestionConfig, TrainingPipelineConfig, DataValidationConfig
 
 import sys
 
@@ -18,12 +18,12 @@ if __name__=='__main__':
         logging.info("Data Initiated completed")
         print(dataingestionartifact)
 
-        # data_validation_config = DataValidationConfig(trainingpipelineconfig)
-        # data_validation = DataValidation(dataingestionartifact,data_validation_config)
-        # logging.info("initiate the data validation")
-        # data_validation_artifact=data_validation.initiate_data_validation()
-        # logging.info(" data validation completed")
-        # print(data_validation_artifact)
+        data_validation_config = DataValidationConfig(trainingpipelineconfig)
+        data_validation = DataValidation(dataingestionartifact,data_validation_config)
+        logging.info("initiate the data validation")
+        data_validation_artifact=data_validation.initiate_data_validation()
+        logging.info(" data validation completed")
+        print(data_validation_artifact)
 
         # data_transformation_config = DataTransformationConfig(trainingpipelineconfig)
         # logging.info(" data Transformation Started")
